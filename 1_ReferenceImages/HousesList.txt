@@ -1,0 +1,9 @@
+house0|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house0.jpg 
+house1|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house1.jpg 
+house2|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house2.jpg 
+house3|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house3.jpg 
+house4|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house4.jpg 
+house5|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house5.jpg 
+house6|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house6.jpg 
+house7|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house7.jpg 
+house8|C:\Users\bzach\Desktop\ARReferenceImages\Houses\house8.jpg 
