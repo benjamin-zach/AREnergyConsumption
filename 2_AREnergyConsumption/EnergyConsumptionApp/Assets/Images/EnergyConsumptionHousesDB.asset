@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1208cb4bfc946f7aa1d7b5348cb086, type: 3}
+  m_Name: EnergyConsumptionHousesDB
+  m_EditorClassIdentifier: 
+  m_Images:
+  - Name: house0
+    Width: 0
+    Quality: 80
+    TextureGUID: 41184b064ea432940a4aa232c2d6df1d
+  - Name: house1
+    Width: 0
+    Quality: 95
+    TextureGUID: 9fd848dfc24cd0646995ae5aadbf9ff9
+  - Name: house2
+    Width: 0
+    Quality: 100
+    TextureGUID: 5fe755a1ffcdcbf47a100fc7d9224d02
+  - Name: house3
+    Width: 0
+    Quality: 40
+    TextureGUID: ed07c0e29c4216b458c0e60852fa9d9f
+  - Name: house4
+    Width: 0
+    Quality: 90
+    TextureGUID: 0b01e4b2100bb6d40988f607b1cfbb10
+  - Name: house5
+    Width: 0
+    Quality: 50
+    TextureGUID: 6165de3968289e64eaff0c4b95a2686c
+  - Name: house6
+    Width: 0
+    Quality: 60
+    TextureGUID: 54bc3f83a09f5ed44bc850f288962398
+  - Name: house7
+    Width: 0
+    Quality: 50
+    TextureGUID: 3163e3b8ebd6a914f87a33063af5e567
+  - Name: house8
+    Width: 0
+    Quality: 90
+    TextureGUID: 38d6662b0a522bb47a484d4446f96357
+  m_RawData: 
+  m_IsRawDataDirty: 1
+  m_CliVersion: 1.2
