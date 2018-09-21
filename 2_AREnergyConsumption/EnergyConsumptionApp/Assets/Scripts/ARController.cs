@@ -17,13 +17,13 @@ public class ARController : MonoBehaviour
 	public Text testText;
 	public Canvas UICanvas;
 	public Camera ARCamera;
-	public TextAsset DataFile;
+	//public TextAsset DataFile;
 	private string DataFilePath;
 
 	/// <summary>
 	/// A prefab for visualizing an AugmentedImage.
 	/// </summary>
-	public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
+	//public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
 
 	/// <summary>
 	/// The overlay containing the fit to scan user guide.
@@ -40,7 +40,7 @@ public class ARController : MonoBehaviour
 	/// 
 	public void Start()
 	{
-		AugmentedImageVisualizerPrefab.gameObject.SetActive(false);
+		//AugmentedImageVisualizerPrefab.gameObject.SetActive(false);
 		testText.gameObject.SetActive(false);
 
 		if (Application.platform == RuntimePlatform.WindowsEditor)
@@ -75,7 +75,7 @@ public class ARController : MonoBehaviour
 		}
 
 		UpdateDebugText();
-		UpdateUICanvas();
+		//UpdateUICanvas();
 
 	}
 
@@ -139,7 +139,7 @@ public class ARController : MonoBehaviour
 		UICanvas.gameObject.SetActive(CanvasActive);
 	}
 
-	private void UpdateAugmentedImage()
+	/*private void UpdateAugmentedImage()
 	{
 		// Get updated augmented images for this frame.
 		Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
@@ -179,7 +179,7 @@ public class ARController : MonoBehaviour
 
 		FitToScanOverlay.SetActive(true);
 
-	}
+	}*/
 }
 
 public struct HouseData_t
