@@ -13,25 +13,23 @@ using System;
 /// </summary>
 public class ARController : MonoBehaviour
 {
-	public List<GameObject> panels;
-	public Text testText;
-	public Canvas UICanvas;
+	//public List<GameObject> panels;
+	//public Text DebugText;
+	//public Canvas UICanvas;
 	public Camera ARCamera;
+	public Canvas MainCanvas;	
 	//public TextAsset DataFile;
 	private string DataFilePath;
 
-	/// <summary>
-	/// A prefab for visualizing an AugmentedImage.
-	/// </summary>
-	//public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
+	public AugmentedImageController AugmentedImageVisualizerPrefab;
 
 	/// <summary>
 	/// The overlay containing the fit to scan user guide.
 	/// </summary>
 	public GameObject FitToScanOverlay;
 
-	private Dictionary<int, AugmentedImageVisualizer> m_Visualizers
-		= new Dictionary<int, AugmentedImageVisualizer>();
+	private Dictionary<int, AugmentedImageController> m_Visualizers
+		= new Dictionary<int, AugmentedImageController>();
 
 	private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
 
@@ -41,7 +39,7 @@ public class ARController : MonoBehaviour
 	public void Start()
 	{
 		//AugmentedImageVisualizerPrefab.gameObject.SetActive(false);
-		testText.gameObject.SetActive(false);
+		//DebugText.gameObject.SetActive(false);
 
 		if (Application.platform == RuntimePlatform.WindowsEditor)
 		{
@@ -74,69 +72,101 @@ public class ARController : MonoBehaviour
 			return;
 		}
 
-		UpdateDebugText();
-		//UpdateUICanvas();
+		//UpdateDebug();
+		UpdateUICanvas();
 
 	}
 
-	private void UpdateDebugText()
-	{
-		//Debug.Log("Updating debug text");
-		Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.All);
-		bool DebugTextActive = false;
-
-		if (m_TempAugmentedImages.Count > 0)
-		{
-			Debug.Log("Found " + m_TempAugmentedImages.Count.ToString() + " trackables");
-		}
-
-		int i = 0;
-		foreach (AugmentedImage image in m_TempAugmentedImages)
-		{
-			Debug.Log("Image " + i.ToString() + " tracking state: " + image.TrackingState.ToString());
-
-			if (image.TrackingState.Equals(TrackingState.Tracking))
-			{
-				DebugTextActive = true;
-				testText.text = "House " + image.DatabaseIndex;
-				Anchor anchor = image.CreateAnchor(image.CenterPose);
-
-				Vector3 testPos = Camera.main.WorldToScreenPoint(anchor.transform.position);
-				//Debug.Log("Test pos: " + testPos.ToString());
-				//testText.transform.position = testPos;
-				//if (panels.Count > 0)
-				//{
-				//	panels[0].SetActive(true);
-				//}
-			}
-		}
-
-		testText.gameObject.SetActive(DebugTextActive);
-	}
-
-	private void UpdateUICanvas()
+	private void UpdateDebug()
 	{
 		// Get updated augmented images for this frame.
-		Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.All);
-		bool CanvasActive = false;
+		Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
+		//bool CanvasActive = false;
 
 		// Create visualizers and anchors for updated augmented images that are tracking and do not previously
 		// have a visualizer. Remove visualizers for stopped images.
 		foreach (var image in m_TempAugmentedImages)
 		{
-
-			if (image.TrackingState == TrackingState.Tracking)
+			AugmentedImageController visualizer = null;
+			m_Visualizers.TryGetValue(image.DatabaseIndex, out visualizer);
+			if (image.TrackingState == TrackingState.Tracking && visualizer == null)
 			{
-				CanvasActive = true;
+				Debug.Log("Found image " + image.DatabaseIndex.ToString() + ". Setting up ui canvas");
+
 				// Create an anchor to ensure that ARCore keeps tracking this augmented image.
 				Anchor anchor = image.CreateAnchor(image.CenterPose);
-				Vector3 testPos = Camera.main.WorldToScreenPoint(anchor.transform.position);
-				Debug.Log("Test pos: " + testPos.ToString());
-				UICanvas.transform.position = testPos;
+				GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				cube.AddComponent<Rigidbody>();
+				cube.GetComponent<Rigidbody>().useGravity = false;
+				cube.transform.position = anchor.transform.position;
 			}
 		}
 
-		UICanvas.gameObject.SetActive(CanvasActive);
+		foreach (var visualizer in m_Visualizers.Values)
+		{
+			if (visualizer.Image.TrackingState == TrackingState.Tracking)
+			{
+				FitToScanOverlay.SetActive(false);
+				return;
+			}
+		}
+		FitToScanOverlay.SetActive(true);
+
+		//UICanvas.gameObject.SetActive(CanvasActive);
+	}
+
+	private void UpdateUICanvas()
+	{
+		// Get updated augmented images for this frame.
+		Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
+		//bool CanvasActive = false;
+
+		// Create visualizers and anchors for updated augmented images that are tracking and do not previously
+		// have a visualizer. Remove visualizers for stopped images.
+		foreach (var image in m_TempAugmentedImages)
+		{
+			AugmentedImageController visualizer = null;
+			m_Visualizers.TryGetValue(image.DatabaseIndex, out visualizer);
+			if (image.TrackingState == TrackingState.Tracking && visualizer == null)
+			{
+				Debug.Log("Found image " + image.DatabaseIndex.ToString() + ". Setting up ui canvas");
+
+				// Create an anchor to ensure that ARCore keeps tracking this augmented image.
+				Anchor anchor = image.CreateAnchor(image.CenterPose);
+				visualizer = (AugmentedImageController)Instantiate(AugmentedImageVisualizerPrefab, anchor.transform);
+				if(visualizer == null)
+				{
+					Debug.Log("Visualizer is still null");
+				}
+				visualizer.transform.RotateAround(visualizer.transform.position, visualizer.transform.right, 90);
+				visualizer.gameObject.SetActive(true);
+				visualizer.DebugString = "House " + image.DatabaseIndex.ToString();
+				visualizer.Image = image;
+				m_Visualizers.Add(image.DatabaseIndex, visualizer);
+
+				//CanvasActive = true;
+				//Vector3 testPos = Camera.main.WorldToScreenPoint(anchor.transform.position);
+				//Debug.Log("Test pos: " + testPos.ToString());
+				//UICanvas.transform.position = testPos;
+			}
+			else if(image.TrackingState == TrackingState.Stopped && visualizer != null)
+			{
+				m_Visualizers.Remove(image.DatabaseIndex);
+				GameObject.Destroy(visualizer.gameObject);
+			}
+		}
+
+		foreach (var visualizer in m_Visualizers.Values)
+		{
+			if (visualizer.Image.TrackingState == TrackingState.Tracking)
+			{
+				FitToScanOverlay.SetActive(false);
+				return;
+			}
+		}
+		FitToScanOverlay.SetActive(true);
+
+		//UICanvas.gameObject.SetActive(CanvasActive);
 	}
 
 	/*private void UpdateAugmentedImage()

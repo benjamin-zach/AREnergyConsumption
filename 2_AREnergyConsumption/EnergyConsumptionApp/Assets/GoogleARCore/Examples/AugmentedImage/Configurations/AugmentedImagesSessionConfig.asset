@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -14,5 +14,7 @@ MonoBehaviour:
   MatchCameraFramerate: 1
   PlaneFindingMode: 0
   EnableLightEstimation: 0
-  AugmentedImageDatabase: {fileID: 11400000, guid: c3e077e231877401e8d2163ebbbc9dc6,
+  EnableCloudAnchor: 0
+  AugmentedImageDatabase: {fileID: 11400000, guid: 0e321c4e7ade78146b41a7c920abf4d0,
     type: 2}
+  CameraFocusMode: 0

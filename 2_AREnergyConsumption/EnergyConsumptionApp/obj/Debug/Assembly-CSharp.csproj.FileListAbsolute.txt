@@ -169,3 +169,7 @@ C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsump
 C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\obj\Debug\Assembly-CSharp.dll
 C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\obj\Debug\Assembly-CSharp.pdb
+C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml
+C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\bzach\Documents\0_EnergyConsumption\2_AREnergyConsumption\EnergyConsumptionApp\Temp\bin\Debug\UnityEditor.UI.xml
